@@ -21,7 +21,7 @@ public class User {
     @Column(name ="email")
     private String email;
 
-    @OneToMany(mappedBy ="users", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<ToDoList> lists;
 

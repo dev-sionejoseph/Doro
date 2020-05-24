@@ -16,7 +16,7 @@ public class ToDoList {
     @Column(name ="title")
     private String title;
 
-    @OneToMany(mappedBy ="to_do_lists", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "list_id")
     private List<ToDoItem> items;
 
