@@ -2,6 +2,7 @@ package com.doro.doroSpring.controller;
 
 
 import com.doro.doroSpring.model.ToDoItem;
+import com.doro.doroSpring.model.ToDoList;
 import com.doro.doroSpring.repository.ListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/doro/api")
+@RequestMapping("user_{id}/")
 
 public class ListController {
 
@@ -18,18 +19,18 @@ public class ListController {
     private ListRepository listRepository;
 
 
-//  get all employees
 
 
-    @GetMapping("/todo/{user_id}")
-    public List<ToDoItem> getUserToDoItems(Model model) {
 
-        return this.toDoRepository.findAllById();
+    @GetMapping("/lists")
+    public List<ToDoList> getUserToDoLists(Model model) {
+
+        return this.listRepository.findAllById();
 
     }
 
 
-    @PostMapping("/todo/{user}"){
+    @PostMapping("/lists"){
 
     }
 
@@ -37,10 +38,10 @@ public class ListController {
 
 //  Update Employee
 
-    @PutMapping("/todo/{user}")
+    @PutMapping("/lists")
 
 
 //  Delete Employee
 
-    @DeleteMapping("/todo/{user}")
+    @DeleteMapping("lists")
 }
