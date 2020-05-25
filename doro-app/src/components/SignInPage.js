@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import firebase from 'firebase';
+import fireBase from '../config/Firebase';
 
 export default class SignInPage extends Component {
     constructor(props){
         super(props);
 
-        this.state({
+        this.state = {
             signIn: true,
             signUp: false,
             firstName: '',
@@ -14,49 +14,57 @@ export default class SignInPage extends Component {
             password:'',
             id: null,
             error: ''
-        });
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
         this.handleSignUp = this.handleSignUp.bind(this);
         this.handleSubmit = this.handleChange.bind(this);
+        // this.addNoOpUser = this.addNoOpUser.bind(this);
+
     }
 
-    handleChange(){
+    handleChange(e){
         this.setState({
              [e.target.name]: e.target.value 
             });
     }
 
-    handleSignIn(){
+    handleSignIn(e){
         
-        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-        }).catch((error) => {
+        fireBase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        .catch((error) => {
             this.setState({
-                error: error
+                error: error.message
             });
           });
     }
 
-    handleSignUp(){
+    handleSignUp(e){
         this.setState({ 
             signIn: false, 
             signUp: true
         });
     }
 
-    handleSubmit(){
+    handleSubmit(e){
 
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-        }).then((u)=>{console.log(u)})
-        .catch((error) => {
+        fireBase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+        }).then((u)=>{
             this.setState({
-                error: error
+                id: u.uid
+            })
+        }).catch((error) => {
+            this.setState({
+                error: error.message
             });
           })
       }
+    
 
-    }
+    // addNoOpUser(){
+    //     // post to databasa as noop user
+    // }
 
     render() {
         return (
@@ -68,7 +76,7 @@ export default class SignInPage extends Component {
                         <input className="sign-in-inputs" name="password" id="si-password" placeholder="Password"></input>
                     </div>
                     <div id="sign-in-button-wraps">
-                        <button className="sign-in-button">Sign In</button>
+                        <button className="sign-in-button" onClick={this.handleSignIn}>Sign In</button>
                         <button className="sign-up-button">Sign Up</button>
                     </div>
                 </div>
@@ -86,9 +94,7 @@ export default class SignInPage extends Component {
                             <button className="submit-button">Submit</button>
                         </div>
                     </div>
-                )}
-            
-            
+                )} 
         </div>
         )
     }
