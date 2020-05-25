@@ -1,9 +1,8 @@
-import fireBase from './config/Firebase';
+import React, { Component } from 'react'
 import HomePage from './components/HomePage';
 import SignInPage from './components/SignInPage';
 import './App.css';
-
-import React, { Component } from 'react'
+import fireINIT from './config/Firebase';
 
 export default class App extends Component {
   constructor() {
@@ -17,7 +16,7 @@ export default class App extends Component {
   }
 
   authcheck() {
-    fireBase.auth().onAuthStateChanged((user) => {
+    fireINIT.auth().onAuthStateChanged((user) => {
       if(user) {
         this.setState({ 
           user: true 
