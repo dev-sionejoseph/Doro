@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import fireBase from '../config/Firebase';
+import fireINIT from '../config/Firebase';
 
 export default class SignInPage extends Component {
     constructor(props){
@@ -12,15 +12,16 @@ export default class SignInPage extends Component {
             lastName: '',
             email:'',
             password:'',
-            id: null,
+            id: '',
             error: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSignIn = this.handleSignIn.bind(this);
         this.handleSignUp = this.handleSignUp.bind(this);
-        this.handleSubmit = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.addNoOpUser = this.addNoOpUser.bind(this);
+        this.handleBack = this.handleBack.bind(this);
 
     }
 
@@ -32,7 +33,7 @@ export default class SignInPage extends Component {
 
     handleSignIn(e){
         
-        fireBase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+        fireINIT.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
         .catch((error) => {
             this.setState({
                 error: error.message
@@ -73,13 +74,18 @@ export default class SignInPage extends Component {
             });
             }
     
-    handleSubmit(e){
+    handleSubmit(){
 
-        fireBase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
-        }).then((u)=>{
+        fireINIT.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then((u)=>{
+            console.log(u.user.uid);
+
             this.setState({
-                id: u.uid
+                id: u.user.uid
             })
+
+            this.addNoOpUser(); //adds extra info and id to database
+
         }).catch((error) => {
             this.setState({
                 error: error.message
@@ -112,10 +118,11 @@ export default class SignInPage extends Component {
                             <input className="sign-up-inputs" name="lastName" id="su-last-name" placeholder="Last Name" onChange={this.handleChange}></input>
                             <input className="sign-up-inputs" name="email" id="su-email" placeholder="Email Address" onChange={this.handleChange}></input>
                             <input className="sign-up-inputs" name="password" id="su-password" placeholder="Password" onChange={this.handleChange}></input>
+                            {this.state.error}
                         </div>
                         <div id="sign-up-button-wraps">
                             <button className="back-button" onClick={this.handleBack}>Back</button>
-                            <button className="submit-button"onClick={this.handleSubmit}>Submit</button>
+                            <button className="submit-button" onClick={this.handleSubmit}>Submit</button>
                         </div>
                     </div>
                 )} 
