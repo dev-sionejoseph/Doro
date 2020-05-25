@@ -8,9 +8,8 @@ import java.util.List;
 @Table(name = "noop_users")
 public class User {
     @Id
-    @GeneratedValue
     @Column(name ="id")
-    private long id;
+    private String id;
 
     @Column(name ="first_name")
     private String firstName;
@@ -36,11 +35,11 @@ public class User {
         this.email = email;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

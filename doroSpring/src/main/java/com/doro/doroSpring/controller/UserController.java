@@ -18,7 +18,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/{user_id}")
-    public Optional<User> getUser(@PathVariable(value = "user_id") Long userId) {
+    public Optional<User> getUser(@PathVariable(value = "user_id") String userId) {
 
         return this.userRepository.findById(userId);
 
@@ -30,7 +30,7 @@ public class UserController {
         }
 
     @PutMapping("/{user_id}/edit")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "user_id") Long userId,
+    public ResponseEntity<User> updateUser(@PathVariable(value = "user_id") String userId,
                                                    @Valid @RequestBody User editedUser)
             throws ResourceNotFoundException {
         User user = userRepository.findById(userId)

@@ -21,7 +21,7 @@ public class ItemsController {
 
 
     @GetMapping("/{user_id}/{list_id}/items")
-    public List<ToDoItem> getItemsForList(@PathVariable(value = "list_id") Long listId) {
+    public List<ToDoItem> getItemsForList(@PathVariable(value = "list_id") String listId) {
 
 //        ToDoList.getItems();
 
@@ -38,7 +38,7 @@ public class ItemsController {
 
 
     @PutMapping("/{user_id}/{list_id}/{item_id}")
-    public ResponseEntity<ToDoItem> updateEmployee(@PathVariable(value = "item_id") Long itemId,
+    public ResponseEntity<ToDoItem> updateEmployee(@PathVariable(value = "item_id") String itemId,
                                                    @Valid @RequestBody ToDoItem editedItem)
             throws ResourceNotFoundException {
         ToDoItem item = itemRepository.findById(itemId)
@@ -58,7 +58,7 @@ public class ItemsController {
 
 
     @DeleteMapping("/{user_id}/{list_id}/{item_id}")
-    public Map<String, Boolean> deletedItem(@PathVariable(value = "item_id") Long itemId)
+    public Map<String, Boolean> deletedItem(@PathVariable(value = "item_id") String itemId)
             throws ResourceNotFoundException {
         ToDoItem item = itemRepository.findById(itemId)
                 .orElseThrow(()-> new ResourceNotFoundException("No such item found :: " + itemId));

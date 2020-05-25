@@ -9,12 +9,14 @@ import java.util.List;
 @Table(name = "to_do_lists")
 public class ToDoList {
     @Id
-    @GeneratedValue
     @Column(name ="id")
-    private long id;
+    private String id;
 
     @Column(name ="title")
     private String title;
+
+    @Column(name ="user_id")
+    private String user_id;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "list_id")
@@ -26,17 +28,17 @@ public class ToDoList {
         super();
     }
 
-    public ToDoList(Long id, String title, Array items) {
+    public ToDoList(String id, String title, Array items) {
         super();
         this.id = id;
         this.title = title;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -54,6 +56,14 @@ public class ToDoList {
 
     public void setItems(List<ToDoItem> items) {
         this.items = items;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public void addItem(ToDoItem item){

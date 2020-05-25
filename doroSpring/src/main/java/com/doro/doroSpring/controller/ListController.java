@@ -24,7 +24,7 @@ public class ListController {
 
 
     @GetMapping("/{user_id}/lists")
-    public List<ToDoList> getUserToDoLists(@PathVariable(value = "user_id") Long userId) {
+    public List<ToDoList> getUserToDoLists(@PathVariable(value = "user_id") String userId) {
 
         return this.listRepository.findAllById(Collections.singleton(userId));
 
@@ -39,7 +39,7 @@ public class ListController {
 
 
     @PutMapping("/{user_id}/{list_id}/edit")
-    public ResponseEntity<ToDoList> updateList(@PathVariable(value = "list_id") Long listId,
+    public ResponseEntity<ToDoList> updateList(@PathVariable(value = "list_id") String listId,
                                                    @Valid @RequestBody ToDoList editedList)
             throws ResourceNotFoundException {
         ToDoList list = listRepository.findById(listId)
@@ -58,7 +58,7 @@ public class ListController {
 
 
     @DeleteMapping("/{user_id}/{list_id}/delete")
-    public Map<String, Boolean> deletedList(@PathVariable(value = "list_id") Long listId)
+    public Map<String, Boolean> deletedList(@PathVariable(value = "list_id") String listId)
             throws ResourceNotFoundException {
         ToDoList list = listRepository.findById(listId)
                 .orElseThrow(()-> new ResourceNotFoundException("No list found with id :: " + listId));

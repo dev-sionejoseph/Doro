@@ -6,15 +6,17 @@ import javax.persistence.*;
 @Table(name = "to_do_items")
 public class ToDoItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
-    private long id;
+    private String id;
 
     @Column(name ="details")
     private String details;
 
     @Column(name ="deadline")
     private String deadline;
+
+    @Column(name ="list_id")
+    private String list_id;
 
     public ToDoItem() {
 
@@ -25,11 +27,11 @@ public class ToDoItem {
         this.deadline = deadline;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,5 +49,13 @@ public class ToDoItem {
 
     public void setDeadline(String deadline) {
         this.deadline = deadline;
+    }
+
+    public String getList_id() {
+        return list_id;
+    }
+
+    public void setList_id(String list_id) {
+        this.list_id = list_id;
     }
 }
