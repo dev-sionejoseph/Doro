@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import firebase from 'firebase';
 
 export default class SignInPage extends Component {
     constructor(props){
@@ -10,7 +11,9 @@ export default class SignInPage extends Component {
             firstName: '',
             lastName: '',
             email:'',
-            id: null
+            password:'',
+            id: null,
+            error: ''
         });
 
         this.handleChange = this.handleChange.bind(this);
@@ -26,7 +29,13 @@ export default class SignInPage extends Component {
     }
 
     handleSignIn(){
-
+        
+        firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+        }).catch((error) => {
+            this.setState({
+                error: error
+            });
+          });
     }
 
     handleSignUp(){
@@ -38,6 +47,15 @@ export default class SignInPage extends Component {
 
     handleSubmit(){
 
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+        }).then((u)=>{console.log(u)})
+        .catch((error) => {
+            this.setState({
+                error: error
+            });
+          })
+      }
+
     }
 
     render() {
@@ -47,7 +65,7 @@ export default class SignInPage extends Component {
                 <div id="sign-in-form">
                     <div id="sign-in-input-wraps">
                         <input className="sign-in-inputs" name="email" id="si-email" placeholder="Email Address"></input>
-                        <input className="sign-in-inputs" id="si-password" placeholder="Password"></input>
+                        <input className="sign-in-inputs" name="password" id="si-password" placeholder="Password"></input>
                     </div>
                     <div id="sign-in-button-wraps">
                         <button className="sign-in-button">Sign In</button>
@@ -61,11 +79,11 @@ export default class SignInPage extends Component {
                             <input className="sign-up-inputs" name="firstName" id="su-first-name" placeholder="First Name"></input>
                             <input className="sign-up-inputs" name="lastName" id="su-last-name" placeholder="Last Name"></input>
                             <input className="sign-up-inputs" name="email" id="su-email" placeholder="Email Address"></input>
-                            <input className="sign-up-inputs" id="su-password" placeholder="Password"></input>
+                            <input className="sign-up-inputs" name="password" id="su-password" placeholder="Password"></input>
                         </div>
                         <div id="sign-up-button-wraps">
-                            <button className="sign-in-button">Sign In</button>
-                            <button className="sign-up-button">Sign Up</button>
+                            <button className="sign-in-button">Sign In Intead</button>
+                            <button className="submit-button">Submit</button>
                         </div>
                     </div>
                 )}
