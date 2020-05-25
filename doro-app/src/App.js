@@ -1,4 +1,6 @@
-import firebase from 'firebase'
+import firebase from 'firebase';
+import HomePage from './components/HomePage';
+import SignInPage from './components/SignInPage';
 import './App.css';
 
 import React, { Component } from 'react'
