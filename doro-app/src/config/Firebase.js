@@ -13,6 +13,6 @@ import firebase from 'firebase';
         measurementId: "G-GSFN09M7G8"
       };
       // Initialize Firebase
-      const fireBase = firebase.initializeApp(firebaseConfig);
-      export default fireBase;
+      const fireINIT = firebase.initializeApp(firebaseConfig);
+      export default fireINIT;
             
