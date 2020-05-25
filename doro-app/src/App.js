@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import fireBase from './config/Firebase';
 import HomePage from './components/HomePage';
 import SignInPage from './components/SignInPage';
 import './App.css';
@@ -17,7 +17,7 @@ export default class App extends Component {
   }
 
   authcheck() {
-    firebase.auth().onAuthStateChanged((user) => {
+    fireBase.auth().onAuthStateChanged((user) => {
       if(user) {
         this.setState({ 
           user: true 
