@@ -8,8 +8,8 @@ export default class Timer extends Component {
 
       this.state = {
           counting: false,
-          minutes: 00,
-          seconds: 00,
+          minutes: 0,
+          seconds: 0,
           chosenInterval: 25 
       }
 
@@ -54,8 +54,8 @@ export default class Timer extends Component {
     handleReset(event) {
         this.setState({
             counting: false,
-            minutes: 00,
-            seconds: 00
+            minutes: 0,
+            seconds: 0
       })
       clearInterval(this.counter)
       }
@@ -69,7 +69,7 @@ export default class Timer extends Component {
                     })
                 } else if (this.state.minutes < this.state.chosenInterval){
                     this.setState({
-                        seconds: 00,
+                        seconds: 0,
                         minutes: this.state.minutes+1
                         })
                     }
