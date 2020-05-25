@@ -70,7 +70,7 @@ export default class Timer extends Component {
                 } else if (this.state.minutes < this.state.chosenInterval){
                     this.setState({
                         seconds: 0,
-                        minutes: this.state.minutes+1
+                        minutes: this.state.minutes+=1
                         })
                     }
                 }, 1000);         
