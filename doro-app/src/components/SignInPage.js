@@ -6,9 +6,35 @@ export default class SignInPage extends Component {
 
         this.state({
             signIn: true,
-            signUp: false
+            signUp: false,
+            firstName: '',
+            lastName: '',
+            email:'',
+            id: null
         });
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSignIn = this.handleSignIn.bind(this);
+        this.handleSignUp = this.handleSignUp.bind(this);
+        this.handleSubmit = this.handleChange.bind(this);
     }
+
+    handleChange(){
+
+    }
+
+    handleSignIn(){
+
+    }
+
+    handleSignUp(){
+
+    }
+
+    handleSubmit(){
+
+    }
+    
     render() {
         return (
             <div id="sign-in-page-wrap">
