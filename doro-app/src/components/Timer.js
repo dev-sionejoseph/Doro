@@ -8,7 +8,9 @@ export default class Timer extends Component {
 
       this.state = {
           counting: false,
-          seconds: 0, 
+          minutes: 00,
+          seconds: 00,
+          chosenInterval: 25 
       }
 
     // I thought it best to use the bindings like suggested for our forms.
@@ -22,16 +24,15 @@ export default class Timer extends Component {
     // for some reaseon, timer only starts when I press start, then pause, THEN start. yikes.
 
     handleStart(event) {
+      if(this.state.counting === false){
+           this.timerCounting()
+      }  
+      
       this.setState({
           counting: true,
-          minutes: 0,
-          seconds: 0,
-          chosenInterval: 25
       })
 
-      if(this.state.seconds === 0){
-           this.countSeconds()
-      }   
+       
     }
   
     handlePause(event) {
@@ -53,29 +54,27 @@ export default class Timer extends Component {
     handleReset(event) {
         this.setState({
             counting: false,
-            minutes: 0,
-            seconds: 0
+            minutes: 00,
+            seconds: 00
       })
       clearInterval(this.counter)
       }
 
 
     timerCounting(){
-        if ((this.state.seconds < 60) & (this.state.minutes < this.state.chosenInterval)){
             this.counter = setInterval(() => {
+                if ((this.state.seconds < 59) & (this.state.minutes < this.state.chosenInterval)){
                     this.setState({
                         seconds: this.state.seconds+=1
                     })
+                } else if (this.state.minutes < this.state.chosenInterval){
+                    this.setState({
+                        seconds: 00,
+                        minutes: this.state.minutes+1
+                        })
+                    }
                 }, 1000);         
-        } else if (this.state.minutes < this.state.chosenInterval){
-            this.counter = setInterval(() => {
-                this.setState({
-                    seconds: 0,
-                    minutes: this.state.minutes+1
-                })
-            }, 1000); 
-        }  
-    } 
+        } 
 
     render() {
       return (
