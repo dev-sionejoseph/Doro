@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import fire from "../config/Firebase"
+import fireBase from "../config/Firebase"
 
 export default class NavBar extends Component {
     
@@ -12,7 +12,7 @@ export default class NavBar extends Component {
 
 
     handleSignOut() {
-        fire.auth().signOut();
+        fireBase.auth().signOut();
 
         this.setState({
             loggedout: true
