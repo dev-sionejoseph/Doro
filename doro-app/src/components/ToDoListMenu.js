@@ -11,8 +11,9 @@ export default class ToDoListMenu extends Component {
             adding: false,
             editing: false,
             listnum: 0,
-            newTitle:'',
-            lists:''
+            data:'',
+            lists:[],
+            newList: false
         }
 
         this.handleAddList = this.handleAddList.bind(this);
@@ -23,7 +24,7 @@ export default class ToDoListMenu extends Component {
 
     handleAddList(){
         this.setState({
-            adding: true
+            adding: true,
         })
     }
     
@@ -33,26 +34,33 @@ export default class ToDoListMenu extends Component {
         })
     }
 
-    async handleSubmitList(){
-        this.setState({
-            adding: false,
-            listnum: this.state.listnum+=1
-        })
+    handleSubmitList(){
         let User = fireINIT.auth().currentUser
-
+        
         let listBody = {
             id: this.state.listnum,
             title: this.state.newTitle,
             user_id: User.uid
         }
-        await fetch(`/doro/users/${User.uid}/lists`, {
-            method: 'POST',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(listBody),
-        });
+        
+        // let newList = <ToDoList list={ listBody }/>
+        
+        this.setState({
+            adding: false,
+            listnum: this.state.listnum+=1,
+            newList: true
+            // lists: this.state.lists+=newList
+        })
+
+        axios.post(`/doro/users/${User.uid}/lists`, {
+            id: this.state.listnum,
+            title: this.state.newTitle,
+            user_id: User.uid    
+        }).catch((error)=>{
+            this.setState({
+                error:`error: ${error}`
+            });
+       });
     }
 
     handleCancelList(){
@@ -78,10 +86,38 @@ export default class ToDoListMenu extends Component {
                 lists: addedLists,
                 listnum: lists.length
             })
+
+            console.log(this.state.lists);
         
         });
         
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.newList === true){
+
+            let User = fireINIT.auth().currentUser
+
+            axios.get(`/doro/users/${User.uid}`)
+            .then((response)=>{
+                let lists = response.data.lists;
+
+
+                let addedLists = lists.map(list => {
+                    return <ToDoList list={ list }/>
+                });
+
+                this.setState({
+                    lists: addedLists,
+                    listnum: lists.length
+                })
+            
+            });
+        }
+        
+    }
+
+    
     
 
     render() {

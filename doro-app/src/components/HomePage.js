@@ -8,8 +8,10 @@ export default class HomePage extends Component {
         return (
             <div id="home-page-wrap">
                 <NavBar />
-                <Timer />
-                <ToDoListMenu />
+                <div id="home-component-wrap">
+                    <Timer />
+                    <ToDoListMenu />
+                </div>
             </div>
         )
     }

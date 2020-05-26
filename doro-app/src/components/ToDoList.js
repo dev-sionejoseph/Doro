@@ -19,7 +19,9 @@ export default class ToDoList extends Component {
             editing: false,
             user_id: User.uid,
             error:'',
-            addedItems:[]
+            addedItems:[],
+            newItem: false,
+            delete: false
         }
 
         this.submitItem = this.submitItem.bind(this);
@@ -45,7 +47,8 @@ export default class ToDoList extends Component {
 
         this.setState({
             itemnum: this.state.itemnum+=1,
-            adding:false
+            adding:false,
+            newItem:true
         })
         
         axios.post(`/doro/${this.state.user_id}/${this.state.listID}/new-item`,{
@@ -62,11 +65,16 @@ export default class ToDoList extends Component {
     }
 
    deleteList(){
+        
     
         axios.delete(`/doro/users/${this.state.user_id}/${this.state.listID}/delete`,{
                 id:`${this.state.listID}`,
                 title: this.state.title,
                 user_id: this.state.user_id
+            }).then(()=>{
+                this.setState({
+                    delete: true
+                })    
             })
             .catch((error)=>{
                 this.setState({
@@ -112,12 +120,32 @@ export default class ToDoList extends Component {
     
     }
 
-    render() {
+    componentDidUpdate(prevProps, prevState) {
+        if((this.state.newItem === true) || 
+        (this.state.delete === true)){
+            let User = fireINIT.auth().currentUser
 
-        let list = this.props.list
-        const addedItems = list.items.map(item => {
-            return <ToDoItem item={ item }/>
-        })
+            axios.get(`/doro/users/${User.uid}/${this.state.listID}/items`)
+            .then((response)=>{
+                console.log(response.data)
+
+                let items= response.data.lists;
+
+                let addedItems = items.map(item => {
+                    return <ToDoItem item={item} listID={this.state.listID}/>
+                });
+
+                this.setState({
+                    newItem: false,
+                    itemnum: items.length,
+                    addedItems: addedItems,
+                    delete:false
+                })
+            });
+        }
+    }
+
+    render() {
 
         return (
             <div className="to-do-list">
@@ -146,7 +174,7 @@ export default class ToDoList extends Component {
                         ): 
                         ('')
                         }
-                    {addedItems}
+                    {this.state.addedItems}
                 </div>
             </div>
         )

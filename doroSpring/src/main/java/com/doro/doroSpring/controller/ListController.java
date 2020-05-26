@@ -30,6 +30,12 @@ public class ListController {
 
     }
 
+    @GetMapping("/{user_id}/{list_id}")
+    public List<ToDoList> getExactList(@PathVariable(value = "list_id") String listId) {
+
+        return this.listRepository.findAllById(listId);
+
+    }
 
     @PostMapping("/{user_id}/lists")
         public ToDoList createList(@Valid @RequestBody ToDoList list) {

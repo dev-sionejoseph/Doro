@@ -25,7 +25,7 @@ public class ItemsController {
 
 //        ToDoList.getItems();
 
-        return this.itemRepository.findAllById(Collections.singleton(listId));
+        return this.itemRepository.findAllById(listId);
 
     }
 

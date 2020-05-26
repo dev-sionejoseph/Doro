@@ -101,6 +101,7 @@ export default class SignInPage extends Component {
             <div id="sign-in-page-wrap">
             {this.state.signIn ? (
                 <div id="sign-in-form">
+                    <div className="welcome">Welcome to Doro!</div>
                     <div id="sign-in-input-wraps">
                         <input className="sign-in-inputs" name="email" id="si-email" placeholder="Email Address" onChange={this.handleChange}></input>
                         <input className="sign-in-inputs" name="password" id="si-password" placeholder="Password" onChange={this.handleChange}></input>
@@ -113,6 +114,7 @@ export default class SignInPage extends Component {
                 
                 ) : (
                     <div id="sign-up-form">
+                        <div className="welcome">Welcome to Doro!</div>
                         <div id="sign-up-input-wraps">
                             <input className="sign-up-inputs" name="firstName" id="su-first-name" placeholder="First Name" onChange={this.handleChange}></input>
                             <input className="sign-up-inputs" name="lastName" id="su-last-name" placeholder="Last Name" onChange={this.handleChange}></input>

@@ -78,7 +78,7 @@ export default class Timer extends Component {
 
     render() {
       return (
-        <div id='main'>
+        <div id='main-timer-wrap'>
             <div id='timer-view'>
                 <div id='minutes'>
                     {this.state.minutes}

@@ -1,4 +1,124 @@
 .App {
   text-align: center;
+  height: 100vh;
+  width: 100vw;
 }
 
+#sign-in-page-wrap {
+  height: 100%;
+  width: 100%;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sign-in-form{
+  height: 30%;
+  width: 30%;
+  background-color: tomato;
+  font-size: 2em;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#sign-in-input-wraps{
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome{
+  position: relative;
+  height: 10%;
+}
+
+.sign-in-inputs{
+  height: 10%;
+  min-height: 20px;
+  width: 60%;
+  margin: 2px;
+}
+
+#sign-in-button-wraps{
+  height: 20%;
+}
+
+#sign-up-form{
+  height: 50%;
+  width: 30%;
+  background-color: tomato;
+  font-size: 2em;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#sign-up-input-wraps{
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#sign-up-button-wraps{
+  height: 20%;
+}
+
+.sign-up-inputs{
+  height: 10%;
+  min-height: 20px;
+  width: 60%;
+  margin: 2px;
+}
+
+#home-page-wrap {
+  height: 100%;
+  width: 100%;
+  background-color: tomato;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  height: 10%;
+  width: 100%;
+  text-decoration: none;
+  /* display: flex; */
+  /* justify-items: center; */
+  background-color: aquamarine;
+}
+
+nav ul{
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li{
+  list-style: none;
+  text-decoration: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#home-component-wrap{
+  height: 90%;
+  width: 80%;
+  background-color: thistle;
+}
+
+#main-timer-wrap{
+
+}
