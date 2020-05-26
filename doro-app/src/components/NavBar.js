@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import fireBase from "../config/Firebase"
+import Axios from 'axios';
 
 export default class NavBar extends Component {
     
@@ -18,6 +19,8 @@ export default class NavBar extends Component {
             loggedout: true
         })
     }
+
+    
     
     render() {
         return (

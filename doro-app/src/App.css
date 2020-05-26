@@ -98,7 +98,7 @@ nav {
   text-decoration: none;
   /* display: flex; */
   /* justify-items: center; */
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 nav ul{
@@ -117,8 +117,46 @@ nav ul li{
   height: 90%;
   width: 80%;
   background-color: thistle;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #main-timer-wrap{
+  height: 40%;
+  width: 60%;
+  background-color: whitesmoke;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+#timer-view{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8em;
+}
+
+#list-menu-wrap{
+  height: 35%;
+  margin-top: 5%;
+  width: 60%;
+  background-color: whitesmoke;
+}
+
+.add-list-bar{
+  background-color:tomato;
+}
+
+#list-container{
+  display: inline-flex;
+  flex-direction: column;
+}
+
+#to-do-list{
+  width: 1fr;
+  height: 1fr;
 }

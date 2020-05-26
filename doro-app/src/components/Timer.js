@@ -81,7 +81,7 @@ export default class Timer extends Component {
         <div id='main-timer-wrap'>
             <div id='timer-view'>
                 <div id='minutes'>
-                    {this.state.minutes}
+                    {this.state.minutes}:
                 </div>
                 <div id='seconds'>
                     {this.state.seconds}

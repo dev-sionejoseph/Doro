@@ -125,11 +125,11 @@ export default class ToDoListMenu extends Component {
         return (
             <div id="list-menu-wrap">
                     {this.state.adding === false ? (
-                    <div id="add-list-bar">
+                    <div className="add-list-bar">
                         <button id="add-list" onClick={this.handleAddList}>+</button>
                     </div>
                     ) : (
-                    <div id="add-list-bar">
+                    <div className="add-list-bar">
                         <button id="submit-list" onClick={this.handleSubmitList}>done</button>
                         <button id="cancel-list" onClick={this.handleCancelList}>x</button>
                         <input id="list-title-input"onChange={this.handleChange}></input>
