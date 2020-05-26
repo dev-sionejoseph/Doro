@@ -69,13 +69,10 @@ export default class ToDoListMenu extends Component {
         .then((response)=>{
             let lists = response.data.lists;
 
-            console.log(response);
 
             let addedLists = lists.map(list => {
                 return <ToDoList list={ list }/>
             });
-            
-            console.log(addedLists);
 
             this.setState({
                 lists: addedLists,

@@ -1,36 +1,54 @@
 import React, { Component } from 'react'
+import fireINIT from "../config/Firebase"
+import axios from "axios"
 import ToDoItem from './ToDoItem';
 
 export default class ToDoList extends Component {
     constructor(props){
         super(props);
         
+        let User = fireINIT.auth().currentUser
+    
         this.state={
             title:"Title" ,
             listID: null,
             itemnum: 0,
             details:'',
             deadline:'',
-            adding:false,
-            editing:false,
-            error:''
+            adding: false,
+            editing: false,
+            user_id: User.uid,
+            error:'',
+            addedItems:[]
         }
-        this.addItem = this.addItem.bind(this);
+
         this.submitItem = this.submitItem.bind(this);
-        this.editList = this.editList.bind(this);
+        this.submitList = this.submitList.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.deleteList = this.deleteList.bind(this);
+        this.triggerInput = this.triggerInput.bind(this);
+
+    }  
+    
+    triggerInput(e){
+        let target= e.target.name
+        target === "edit" ? this.setState({editing:true}) : this.setState({adding:true})
     }
 
+    handleChange(e){
+        this.setState({
+             [e.target.name]: e.target.value 
+            });
+    }
+    
     submitItem(){
 
-        let User = fireINIT.auth().currentUser
-        
         this.setState({
             itemnum: this.state.itemnum+=1,
             adding:false
         })
         
-        axios.post(`/doro/users/${User.uid}/${this.state.listID}/new-item`,{
+        axios.post(`/doro/${this.state.user_id}/${this.state.listID}/new-item`,{
             id:`${this.state.listID}${this.state.itemnum}`,
             details: this.state.details,
             deadline: this.state.deadline,
@@ -38,29 +56,62 @@ export default class ToDoList extends Component {
         })
         .catch((error)=>{
              this.setState({
-                 error:"error: not added"
+                 error:`error: ${error}`
              });
         });
     }
 
-    editList(){
-
-    }
-
    deleteList(){
+    
+        axios.delete(`/doro/users/${this.state.user_id}/${this.state.listID}/delete`,{
+                id:`${this.state.listID}`,
+                title: this.state.title,
+                user_id: this.state.user_id
+            })
+            .catch((error)=>{
+                this.setState({
+                    error:`error: ${error}`
+                });
+            });
+
+   }
+   
+   submitList(){
+       
+        this.setState({
+           editing: false
+        })
+
+        axios.put(`/doro/users/${this.state.user_id}/${this.state.listID}/edit`,{
+            id:`${this.state.listID}`,
+            title: this.state.title,
+            user_id: this.state.user_id
+        })
+        .catch((error)=>{
+             this.setState({
+                 error:`error: ${error}`
+             });
+        });
+
 
    }
 
     componentDidMount(){
         let list= this.props.list
 
+        let addedItems = list.items.map(item => {
+            return <ToDoItem item={item} listID={list.id}/>
+        });
+
         this.setState({
             title: list.title,
             listID: list.id,
-            itemnum: Object.keys(list.items).length
+            itemnum: Object.keys(list.items).length,
+            addedItems: addedItems
         })
     
     }
+
     render() {
 
         let list = this.props.list
@@ -72,17 +123,25 @@ export default class ToDoList extends Component {
             <div className="to-do-list">
                 <div className="list-title-bar">
                     <div className="list-edit">
-                        <button className="delete">x</button>
-                        <button className="edit">edit</button>
+                        <button className="delete" onClick={this.deleteList}>x</button>
+                        <button className="edit" name="edit" onClick={this.triggerInput}>edit</button>
                     </div>
-                    <div className="title"> {this.state.title} </div>
+                    { this.state.editing ? (
+                        <div className="title">
+                            <input name="title" placeholder={this.state.title} onChange={this.handleChange}></input>
+                            <button className="done"onClick={this.submitList}>done</button>
+                        </div>
+                        ): 
+                        (<div className="title"> {this.state.title} </div>)
+                        }
                 </div>
                 <div className="item-container">
-                    <button className="add-item">+</button>
+                    <button className="add-item" name="add" onClick={this.triggerInput}>+</button>
                     {this.state.adding ? (
                         <div className="item-input-wrap">
                             <input name="details" onChange={this.handleChange}></input>
                             <input name="deadline" onChange={this.handleChange}></input>
+                            <button className="done"onClick={this.submitItem}>done</button>
                         </div>
                         ): 
                         ('')
