@@ -14,11 +14,9 @@ export default class ToDoList extends Component {
         this.mapItems = this.mapItems.bind(this);
     }
 
-    mapItems({ list }){
-        let itemIDFormat = `${listID}${this.state.itemnum}`
-
-        
-    }
+    // mapItems({ list }){
+    //     let itemIDFormat = `${listID}${this.state.itemnum}` 
+    // }
 
     componentDidMount({ list }){
         
@@ -29,7 +27,8 @@ export default class ToDoList extends Component {
         })
 
     }
-    render() {
+    render({...list}) {
+
         const addedItems = list.items.map(item => {
             return <ToDoItem item={...item}/>
         })
