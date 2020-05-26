@@ -26,7 +26,7 @@ public class ListController {
     @GetMapping("/{user_id}/lists")
     public List<ToDoList> getUserToDoLists(@PathVariable(value = "user_id") String userId) {
 
-        return this.listRepository.findAllById(Collections.singleton(userId));
+        return this.listRepository.findAllById(userId);
 
     }
 

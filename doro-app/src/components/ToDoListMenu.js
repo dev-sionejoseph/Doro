@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import User from "../config/CurrentUser";
+import fireINIT from "../config/Firebase"
+import axios from "axios"
+import ToDoList from "./ToDoList";
 
 export default class ToDoListMenu extends Component {
     constructor(props){
@@ -36,13 +38,14 @@ export default class ToDoListMenu extends Component {
             adding: false,
             listnum: this.state.listnum+=1
         })
+        let User = fireINIT.auth().currentUser
 
         let listBody = {
             id: this.state.listnum,
             title: this.state.newTitle,
             user_id: User.uid
         }
-        await fetch('/doro/users/list', {
+        await fetch(`/doro/users/${User.uid}/lists`, {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
@@ -59,23 +62,36 @@ export default class ToDoListMenu extends Component {
     }
     
     componentDidMount(){
-        fetch(`/doro/users/${User.uid}/lists`)
-        .then(response => response.json())
-        .then(data => this.setState({lists: data}));
+       
+        let User = fireINIT.auth().currentUser
+
+        axios.get(`/doro/users/${User.uid}`)
+        .then((response)=>{
+            let lists = response.data.lists;
+
+            console.log(response);
+
+            let addedLists = lists.map(list => {
+                return <ToDoList list={ list }/>
+            });
+            
+            console.log(addedLists);
+
+            this.setState({
+                lists: addedLists,
+                listnum: lists.length
+            })
+        
+        });
+        
     }
     
 
     render() {
 
-        let lists = this.state.lists
-
-        let addedLists = lists.map(list => {
-            return <ToDoList list={...list}/>
-        }) 
-        
         return (
             <div id="list-menu-wrap">
-                    {this.state.adding = false ? (
+                    {this.state.adding === false ? (
                     <div id="add-list-bar">
                         <button id="add-list" onClick={this.handleAddList}>+</button>
                     </div>
@@ -87,7 +103,7 @@ export default class ToDoListMenu extends Component {
                     </div>
                     )}
                     <div id="list-container">
-                        {addedLists}
+                        {this.state.lists}
                     </div>
 
             </div>
