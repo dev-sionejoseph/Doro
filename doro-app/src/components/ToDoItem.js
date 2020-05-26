@@ -5,11 +5,11 @@ export default class ToDoItem extends Component {
         return (
             <div className="to-do-item" id={this.props.id}>
                 <div className="item-edit">
-                    <button name="delete" onClick={this.props.onClick}>x</button>
-                    <button name="edit" onClick={this.props.onClick}>edit</button>
+                    <button className="delete" onClick={this.props.onClick}>x</button>
+                    <button className="edit" onClick={this.props.onClick}>edit</button>
                 </div>
-                <div id="item-details"></div>
-                <div id="item-deadline"></div>
+                <div className="item-details"></div>
+                <div className="item-deadline"></div>
             </div>
         )
     }
