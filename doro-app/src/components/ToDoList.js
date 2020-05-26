@@ -79,7 +79,14 @@ export default class ToDoList extends Component {
                 </div>
                 <div className="item-container">
                     <button className="add-item">+</button>
-                    {iteminputs}
+                    {this.state.adding ? (
+                        <div className="item-input-wrap">
+                            <input name="details" onChange={this.handleChange}></input>
+                            <input name="deadline" onChange={this.handleChange}></input>
+                        </div>
+                        ): 
+                        ('')
+                        }
                     {addedItems}
                 </div>
             </div>
